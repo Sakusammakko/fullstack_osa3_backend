@@ -104,8 +104,9 @@ app.get('/info', (req, res) => {
     res.send(`<p>Phonebook has info for ${persons.map(person => person.id).length} people </p> <p>${now}</p>`)
 })
 
-const port = 3001
-app.listen(port)
-console.log(`Server running on port ${port}`)
+const PORT = process.env.PORT || 3001
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`)
+})
 
 
