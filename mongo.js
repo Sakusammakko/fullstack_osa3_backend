@@ -17,15 +17,15 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String
-  })
+  name: String,
+  number: String
+})
 
 const Person = mongoose.model('Person', personSchema)
 
 const person = new Person({
-    name: process.argv[3],
-    number: process.argv[4]
+  name: process.argv[3],
+  number: process.argv[4]
 })
 
 if (process.argv.length === 3) {
@@ -37,7 +37,7 @@ if (process.argv.length === 3) {
     mongoose.connection.close()
   })
 } else {
-  person.save().then(response => {
+  person.save().then(() => {
     console.log('person saved!')
     mongoose.connection.close()
   })

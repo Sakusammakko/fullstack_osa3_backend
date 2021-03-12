@@ -21,45 +21,23 @@ morgan.token('body', (req, res) =>
 
 app.use(morgan(':method :url :status :res[content-length] :response-time ms - :body'))
 
-var persons = [
-    {
-      id: 1,
-      name: "Arto Hellas",
-      number: "040-123456",
-    },
-    {
-      id: 2,
-      name: "Ada Lovelace",
-      number: "39-44-5323523",
-    },
-    {
-      id: 3,
-      name: "Dan Abramov",
-      number: "12-43-234345",
-    },
-    {
-      id: 4,
-      name: "Mary Poppendick",
-      number: "39-23-6423122",
-    }
-]
 console.log('persons lenght: ', persons.map(person => person.id).length)
 
 
 app.get('/', (req, res) => {
-    res.send('<h1>Hello World!</h1>')
+  res.send('<h1>Hello World!</h1>')
 })
 
 app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(people => {
     response.json(people)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.get('/api/persons/:id', (request, response, next) => {
-    console.log('request:', request.params.id)
-    Person.findById(request.params.id)
+  console.log('request:', request.params.id)
+  Person.findById(request.params.id)
     .then(result => {
       console.log('result: ', result)
       response.json(result)
@@ -79,12 +57,12 @@ app.post('/api/persons', (request, response, next) => {
   person.save().then(savedPerson => {
     response.json(savedPerson)
   })
-  .catch(error => next(error))
-}) 
+    .catch(error => next(error))
+})
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -92,7 +70,6 @@ app.delete('/api/persons/:id', (request, response, next) => {
 
 app.get('/info', (request, response, next) => {
   const now = Date()
-  console.log('persons lenght: ', persons.lenght)
   Person.find({})
     .then(result => {
       response.send(`<p>Phonebook has info for ${result.map(person => person.id).length} people </p> <p>${now}</p>`)
